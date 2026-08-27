@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# IDE / OS
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# Packaging outputs (keep packaging/*.spec tracked)
+/dist/
+/build/
+*.AppImage
+*.dmg
+
+# Test / local
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+*.log
+out/
+tmp/
