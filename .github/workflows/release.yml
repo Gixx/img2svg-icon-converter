@@ -22,7 +22,7 @@ jobs:
           - os: ubuntu-22.04
             name: linux-x64
             artifact: Pixicon-linux-x64.tar.gz
-          - os: macos-13
+          - os: macos-15-intel
             name: macos-x64
             artifact: Pixicon-macos-x64.zip
           - os: macos-14
@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set version
         id: ver
@@ -48,7 +48,7 @@ jobs:
           echo "Building Pixicon v${VERSION} (${{ matrix.name }})"
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -92,7 +92,7 @@ jobs:
           test -f "dist/${{ matrix.artifact }}"
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.artifact }}
           path: dist/${{ matrix.artifact }}
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: release-assets
           merge-multiple: true
@@ -121,11 +121,8 @@ jobs:
           name: Pixicon ${{ github.ref_name }}
           draft: false
           generate_release_notes: true
-          files: |
-            release-assets/Pixicon-windows-x64.zip
-            release-assets/Pixicon-linux-x64.tar.gz
-            release-assets/Pixicon-macos-x64.zip
-            release-assets/Pixicon-macos-arm64.zip
+          fail_on_unmatched_files: false
+          files: release-assets/*
           body: |
             ## Downloads
 
