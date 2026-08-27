@@ -1,0 +1,141 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x64
+            artifact: Pixicon-windows-x64.zip
+          - os: ubuntu-22.04
+            name: linux-x64
+            artifact: Pixicon-linux-x64.tar.gz
+          - os: macos-13
+            name: macos-x64
+            artifact: Pixicon-macos-x64.zip
+          - os: macos-14
+            name: macos-arm64
+            artifact: Pixicon-macos-arm64.zip
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set version
+        id: ver
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION="0.0.0-dev.${GITHUB_SHA::7}"
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Building Pixicon v${VERSION} (${{ matrix.name }})"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Linux GUI libs (Qt)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgl1 \
+            libxkbcommon0 \
+            libxkbcommon-x11-0 \
+            libxcb-cursor0 \
+            libdbus-1-3
+
+      - name: Install Python deps
+        run: |
+          python -m pip install -U pip
+          python -m pip install -e .
+          python -m pip install "pyinstaller>=6.3"
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          PIXICON_VERSION: ${{ steps.ver.outputs.version }}
+          PIXICON_ARTIFACT: ${{ matrix.artifact }}
+        run: |
+          ./packaging/build.ps1
+          if (-not (Test-Path "dist/${{ matrix.artifact }}")) {
+            throw "Missing dist/${{ matrix.artifact }}"
+          }
+
+      - name: Build (Unix)
+        if: runner.os != 'Windows'
+        env:
+          PIXICON_VERSION: ${{ steps.ver.outputs.version }}
+          PIXICON_ARTIFACT: ${{ matrix.artifact }}
+        run: |
+          chmod +x packaging/build.sh
+          ./packaging/build.sh
+          test -f "dist/${{ matrix.artifact }}"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/${{ matrix.artifact }}
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: List assets
+        run: ls -lah release-assets/
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Pixicon ${{ github.ref_name }}
+          draft: false
+          generate_release_notes: true
+          files: |
+            release-assets/Pixicon-windows-x64.zip
+            release-assets/Pixicon-linux-x64.tar.gz
+            release-assets/Pixicon-macos-x64.zip
+            release-assets/Pixicon-macos-arm64.zip
+          body: |
+            ## Downloads
+
+            | Platform | File |
+            |----------|------|
+            | Windows x64 | `Pixicon-windows-x64.zip` → run `Pixicon/Pixicon.exe` |
+            | Linux x64 | `Pixicon-linux-x64.tar.gz` → run `./Pixicon/Pixicon` |
+            | macOS Intel | `Pixicon-macos-x64.zip` → open `Pixicon.app` |
+            | macOS Apple Silicon | `Pixicon-macos-arm64.zip` → open `Pixicon.app` |
+
+            No Python install required. On macOS, Gatekeeper may block unsigned apps — right-click → Open the first time.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

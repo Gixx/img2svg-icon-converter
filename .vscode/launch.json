@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Pixicon: Run from source",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pixicon",
+      "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "justMyCode": true
+    },
+    {
+      "name": "Pixicon: Build & Run EXE",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/packaging/launch_exe.py",
+      "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "preLaunchTask": "pixicon: build exe",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Pixicon: Run EXE (no rebuild)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/packaging/launch_exe.py",
+      "cwd": "${workspaceFolder}",
+      "python": "${workspaceFolder}/.venv/Scripts/python.exe",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
