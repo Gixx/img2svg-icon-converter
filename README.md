@@ -1,8 +1,15 @@
 # Pixicon
 
+[![Release](https://img.shields.io/github/v/release/Gixx/img2svg-icon-converter?display_name=tag&label=release)](https://github.com/Gixx/img2svg-icon-converter/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-0f766e)](https://gixx.github.io/img2svg-icon-converter/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-3776ab)](https://www.python.org/)
+[![Release CI](https://img.shields.io/github/actions/workflow/status/Gixx/img2svg-icon-converter/release.yml?label=release%20CI)](https://github.com/Gixx/img2svg-icon-converter/actions/workflows/release.yml)
+[![Pages](https://img.shields.io/github/actions/workflow/status/Gixx/img2svg-icon-converter/pages.yml?branch=main&label=pages)](https://gixx.github.io/img2svg-icon-converter/)
+
 Convert square images into **pixelated SVG icons** (crisp rects, nearest-neighbor resize).
 
-Cross-platform desktop app for **Windows**, **Linux**, and **macOS**.
+Cross-platform desktop app for **Windows**, **Linux**, and **macOS**. Free and open source.
 
 **Website:** [gixx.github.io/img2svg-icon-converter](https://gixx.github.io/img2svg-icon-converter/)
 
