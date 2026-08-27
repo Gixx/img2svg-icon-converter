@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pixicon — Pixelated SVG Icon Converter</title>
+    <meta
+      name="description"
+      content="Pixicon converts square images into crisp, pixel-perfect SVG icons. Free and open source for Windows, Linux, and macOS."
+    />
+    <meta property="og:title" content="Pixicon — Pixelated SVG Icon Converter" />
+    <meta
+      property="og:description"
+      content="Batch-convert icons to pixelated SVGs. Free, open source, cross-platform."
+    />
+    <meta property="og:image" content="assets/app.png" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <img src="assets/favicon.png" alt="" width="28" height="28" />
+        <span>Pixicon</span>
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a
+          class="nav-github"
+          href="https://github.com/Gixx/img2svg-icon-converter"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Free · Open source · Cross-platform</p>
+          <h1>Pixicon</h1>
+          <p class="lede">
+            Turn square images into crisp, pixel-perfect SVG icons — nearest-neighbor
+            sharp, batch-ready, no Python install required.
+          </p>
+          <div class="hero-actions" id="download">
+            <a class="btn btn-primary" id="btn-windows" href="https://github.com/Gixx/img2svg-icon-converter/releases/latest">
+              <span class="btn-label">Windows</span>
+              <span class="btn-meta" data-meta>Latest release</span>
+            </a>
+            <a class="btn btn-primary" id="btn-linux" href="https://github.com/Gixx/img2svg-icon-converter/releases/latest">
+              <span class="btn-label">Linux</span>
+              <span class="btn-meta" data-meta>Latest release</span>
+            </a>
+            <a class="btn btn-primary" id="btn-macos" href="https://github.com/Gixx/img2svg-icon-converter/releases/latest">
+              <span class="btn-label">macOS</span>
+              <span class="btn-meta" data-meta>Latest release</span>
+            </a>
+          </div>
+          <p class="hero-note" id="release-note">
+            Looking up the latest release…
+          </p>
+        </div>
+        <div class="hero-visual">
+          <img
+            class="app-shot"
+            src="assets/app.png"
+            alt="Pixicon desktop app converting Windows icons to SVG"
+            width="1600"
+            height="900"
+          />
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <header class="section-head">
+          <h2>Built for icon work</h2>
+          <p>Technical enough for pixel artists. Simple enough for a Friday afternoon cleanup.</p>
+        </header>
+        <ul class="feature-list">
+          <li>
+            <h3>Pixel-true SVG</h3>
+            <p>Nearest-neighbor resize and merged rects with <code>crispEdges</code> — icons stay sharp at any scale.</p>
+          </li>
+          <li>
+            <h3>Batch queue</h3>
+            <p>Drop multiple PNG, JPEG, GIF, WebP, BMP, TIFF, or ICO files, pick a target size, convert in one pass.</p>
+          </li>
+          <li>
+            <h3>ICO-aware</h3>
+            <p>Multi-resolution icons pick the embedded frame that matches your target size, keeping transparency intact.</p>
+          </li>
+          <li>
+            <h3>Runs everywhere</h3>
+            <p>Standalone builds for Windows, Linux, and macOS. No runtime dependencies for end users.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="oss">
+        <div class="oss-inner">
+          <h2>Open source. Free forever.</h2>
+          <p>
+            Pixicon is MIT-licensed. Inspect the converter, file issues, or ship your own builds —
+            the code lives in the open on GitHub.
+          </p>
+          <a
+            class="btn btn-ghost"
+            href="https://github.com/Gixx/img2svg-icon-converter"
+            rel="noopener noreferrer"
+            >View repository on GitHub</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Pixicon</span>
+      <span class="sep">·</span>
+      <a href="https://github.com/Gixx/img2svg-icon-converter" rel="noopener noreferrer">GitHub</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/Gixx/img2svg-icon-converter/releases/latest" rel="noopener noreferrer">Releases</a>
+      <span class="sep">·</span>
+      <span>MIT License</span>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>

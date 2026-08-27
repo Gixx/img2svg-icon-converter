@@ -4,6 +4,8 @@ Convert square images into **pixelated SVG icons** (crisp rects, nearest-neighbo
 
 Cross-platform desktop app for **Windows**, **Linux**, and **macOS**.
 
+**Website:** [gixx.github.io/img2svg-icon-converter](https://gixx.github.io/img2svg-icon-converter/)
+
 ## Standalone builds (no Python required)
 
 PyInstaller produces a self-contained app folder. End users do **not** need Python or pip.
@@ -79,6 +81,12 @@ pixicon
 ```bash
 pytest
 ```
+
+## Website (GitHub Pages)
+
+Static landing page lives in `website/`. Deploy workflow: `.github/workflows/pages.yml`.
+
+In the GitHub repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**, then push to `main` (or run the workflow manually).
 
 ## License
 
